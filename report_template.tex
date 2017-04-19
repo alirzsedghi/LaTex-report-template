@@ -1,0 +1,183 @@
+\documentclass[12pt]{article}               
+\usepackage[left=2cm, right=2cm, bottom=2cm, top=3cm]{geometry}
+\geometry{letterpaper} 
+\usepackage{cite}
+\usepackage{lipsum}
+\usepackage{amssymb,amsmath}
+\usepackage{epstopdf}
+\usepackage{setspace}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{tocloft}
+%\usepackage{fancyhdr}
+\usepackage{float} % place image here
+\usepackage{pdflscape,lipsum} % landscape page
+\usepackage[absolute]{textpos}
+\usepackage{pdfpages,titleps}
+\usepackage{enumitem}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[framed,numbered,autolinebreaks]{mcode} % code blocks
+\usepackage[font=small,skip=0pt]{caption} % gap between table and caption
+\usepackage[margin=1cm]{caption} % captioon distance from margines
+\captionsetup[table]{skip=7pt} % table caption
+\captionsetup[subfigure]{aboveskip=10pt,belowskip=8pt} % distance of subfigures caption from main caption
+
+\usepackage{amsmath} % matrix in math
+\usepackage{mathtools} % bold math equation 
+\usepackage[numbers]{natbib}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{color}   % may be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	citecolor=blue, %set true if you want colored links
+	linktoc=all,     %set to all if you want both sections and subsections linked
+	linkcolor=blue,  %choose some color if you want links to stand out
+}
+
+\usepackage[nottoc,numbib]{tocbibind} % refrences in TOC
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % adding dots for sections to the page number in TOC
+
+\makeatletter
+\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother % roman numbers
+
+\newcommand*{\fullref}[1]{\hyperref[{#1}]{\nameref*{#1}}} % hyperlink to section name
+
+
+% customizing the header of the pages , each part can be customized(left,center,right)
+\newpagestyle{main}{ 
+	\setheadrule{0.5pt}
+	\sethead{\thesection.~\sectiontitle}  % controling left side of the header 
+	{} % center of the header, if you want to put anything like name: {name}
+	{\subsectiontitle\quad$|$\quad\thepage} % right part of the header: |number
+}
+\pagestyle{main}
+\renewcommand{\makeheadrule}{\rule[-0.5\baselineskip]{\linewidth}{0.1pt}} % space of the header line to above, default is: -0.5
+
+\usepackage{indentfirst}
+\setlength{\parindent}{15pt} %indentation at the first lines of each paragraph
+
+\newcommand{\code}[1]{\texttt{#1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Report Template in LaTex\\\vspace{10pt} \small\textit{Implementation}\vspace{0.5ex}}
+
+\normalsize
+\author{Alireza Sedghi}
+\date{\small{\today}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+%no numbering on title page
+\maketitle
+\thispagestyle{empty} 
+
+%table of content
+\newpage
+\tableofcontents
+\thispagestyle{empty}
+
+% list of figures nad tables
+\newpage
+\listoffigures
+\listoftables
+\pagenumbering{roman}
+
+%starting numbering
+\newpage
+\pagenumbering{arabic}
+
+%%%%%%%%%%%%%%% Abstract %%%%%%%%%%%%%%%%%%%%%%%%%%
+%using section* for having as a section but not numbering it
+\section*{Abstract}
+\addcontentsline{toc}{section}{Abstract} % putting it in the toc, because of section*{} we need to do this
+\thispagestyle{plain} % not having the header on abstract page
+
+%remove lipsum and put your text here, lipsum is for generating random text
+This is a template for a report written in Latex, I tried my best to comment all the packages I used, and the reason I used them. You are more than welcome to contribute to this template. I did not wrote all of it by myself, but I put together pieces of the code to come up with this template. I will explain details of how you can customize it for your need. putting the Abstract in \code{\textbackslash section\{\}} will make it a section with number, but putting it in \code{\textbackslash section*\{\}} give us unnumbered section. this cause a problem of not being listed in table of content(TOC), we will solve it by forcing TOC to have a abstract section with \code{\textbackslash addcontentsline\{toc\}\{section\}\{Abstract\}}
+
+
+
+%%%%%%%%%%%%% Introduction %%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Introduction}
+
+\lipsum[3]Referencing \cite{ref1} to have a reference example. \lipsum[3]\lipsum[1] In \autoref{fig:1} you can see latex logo and in \autoref{fig:2} it is also latex.
+\lipsum[2-4]
+
+\begin{figure}[h!]
+	\centering
+	\begin{minipage}[t]{.5\textwidth}
+		\centering
+		\includegraphics[width=1\linewidth]{pic/Picture1.png}
+		\caption{picture 1}
+		\label{fig:1}
+	\end{minipage}%
+	\begin{minipage}[t]{.5\textwidth}
+		\centering
+		\includegraphics[width=0.5\linewidth]{pic/Picture2.png}
+		\caption{picture 2}
+		\label{fig:2}
+	\end{minipage}
+\end{figure}
+
+\subsection{a new subsection}
+\lipsum[3]
+
+%%%%%%%%%%%%% methodology %%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{methodology}
+\par
+\lipsum[3]
+\noindent
+Without indentation paragraph, Referencing \cite{ref2} to have a reference example. In \autoref{table:1} you can see a table \footnote{wow}.
+
+\begin{table}[ht]
+	\centering
+	\caption{caption}
+	\label{table:1}
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{name}                   & type1          \\ \hline
+		\textbf{type}                   & mmmmmmm        \\ \hline
+		\textbf{and method}             & min            \\ \hline
+		\textbf{or method}              & max            \\ \hline
+		\textbf{newnewnew method}       & centroid       \\ \hline
+		\textbf{input}                  & 5              \\ \hline
+		\textbf{output}                 & 6              \\ \hline
+		\textbf{rules}                  & 17             \\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{itemize}
+	\item
+	\textbf{004.nrrd:} a sample CT image of scoliosis patient (anonymized due to preserving confidential information)
+	\item
+	\textbf{047.nrrd:} a sample CT image of scoliosis patient (anonymized due to preserving confidential information)
+\end{itemize}
+
+\begin{lstlisting}
+% customizing the header of the pages , each part can be customized(left,center,right)
+\newpagestyle{main}{ 
+\setheadrule{0.5pt}
+\sethead{\thesection.~\sectiontitle}  % controling left side of the header 
+{} % center of the header, if you want to put anything like name: {name}
+{\subsectiontitle\quad$|$\quad\thepage} % right part of the header: |number
+}
+\pagestyle{main}
+\renewcommand{\makeheadrule}{\rule[-0.5\baselineskip]{\linewidth}{0.1pt}} % space of the header line to above, default is: -0.5
+\end{lstlisting}
+
+%%%%%%%%%%%%% References %%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\bibliographystyle{unsrtnat}
+\bibliography{ref}
+
+
+\end{document}
